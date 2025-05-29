@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - CursorScout</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="module" src="js/firebaseConfig.js"></script>
+    <script type="module" src="js/auth.js"></script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <nav class="bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex">
+                    <div class="flex-shrink-0 flex items-center">
+                        <h1 class="text-xl font-bold text-blue-600">CursorScout</h1>
+                    </div>
+                </div>
+                <div class="flex items-center">
+                    <button id="logoutBtn" class="ml-4 px-4 py-2 text-sm text-red-600 hover:text-red-800">
+                        Logout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        <div class="px-4 py-6 sm:px-0">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-gray-900">Lista Esploratori</h2>
+                <div class="flex space-x-4">
+                    <input type="text" id="searchInput" placeholder="Cerca esploratore..." 
+                           class="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+            </div>
+
+            <div class="bg-white shadow overflow-hidden sm:rounded-md">
+                <ul id="usersList" class="divide-y divide-gray-200">
+                    <!-- La lista degli utenti verrà popolata dinamicamente -->
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <script type="module">
+        import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { auth } from './js/firebaseConfig.js';
+        import { collection, query, where, getDocs, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { db } from './js/firebaseConfig.js';
+
+        const usersList = document.getElementById('usersList');
+        const searchInput = document.getElementById('searchInput');
+        const logoutBtn = document.getElementById('logoutBtn');
+
+        // Verifica autenticazione e ruolo
+        onAuthStateChanged(auth, async (user) => {
+            if (!user) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            const userDoc = await getDoc(doc(db, "utenti", user.uid));
+            if (!userDoc.exists() || !userDoc.data().staff || !userDoc.data().approvato) {
+                window.location.href = 'scheda.html';
+                return;
+            }
+
+            loadUsers();
+        });
+
+        // Carica la lista degli utenti
+        async function loadUsers(searchTerm = '') {
+            const q = query(collection(db, "utenti"));
+            const querySnapshot = await getDocs(q);
+            
+            usersList.innerHTML = '';
+            
+            querySnapshot.forEach((doc) => {
+                const userData = doc.data();
+                if (userData.ruolo === 'esploratore' && 
+                    (searchTerm === '' || 
+                     userData.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                     userData.cognome.toLowerCase().includes(searchTerm.toLowerCase()))) {
+                    
+                    const li = document.createElement('li');
+                    li.className = 'px-6 py-4 hover:bg-gray-50';
+                    li.innerHTML = `
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <div class="ml-4">
+                                    <div class="text-sm font-medium text-gray-900">
+                                        ${userData.nome} ${userData.cognome}
+                                    </div>
+                                    <div class="text-sm text-gray-500">
+                                        ${userData.email}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex space-x-2">
+                                <a href="scheda.html?id=${doc.id}" 
+                                   class="inline-flex items-center px-3 py-1 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                    Visualizza Scheda
+                                </a>
+                            </div>
+                        </div>
+                    `;
+                    usersList.appendChild(li);
+                }
+            });
+        }
+
+        // Gestione ricerca
+        searchInput.addEventListener('input', (e) => {
+            loadUsers(e.target.value);
+        });
+
+        // Gestione logout
+        logoutBtn.addEventListener('click', async () => {
+            try {
+                await signOut(auth);
+                window.location.href = 'login.html';
+            } catch (error) {
+                console.error('Errore durante il logout:', error);
+            }
+        });
+    </script>
+</body>
+</html> 

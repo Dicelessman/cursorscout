@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scheda Esploratore - CursorScout</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="module" src="js/firebaseConfig.js"></script>
+    <script type="module" src="js/auth.js"></script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <nav class="bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex">
+                    <div class="flex-shrink-0 flex items-center">
+                        <h1 class="text-xl font-bold text-blue-600">CursorScout</h1>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="dashboard.html" class="text-gray-600 hover:text-gray-900">Dashboard</a>
+                    <button id="logoutBtn" class="text-red-600 hover:text-red-800">Logout</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        <div class="px-4 py-6 sm:px-0">
+            <div id="loading" class="flex items-center justify-center min-h-screen">
+                <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+            </div>
+
+            <div id="schedaContent" class="hidden">
+                <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+                    <div class="px-4 py-5 sm:px-6">
+                        <h3 class="text-lg leading-6 font-medium text-gray-900" id="nomeCompleto"></h3>
+                        <p class="mt-1 max-w-2xl text-sm text-gray-500" id="email"></p>
+                    </div>
+
+                    <!-- Dati Anagrafici -->
+                    <div class="border-t border-gray-200">
+                        <dl>
+                            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                <dt class="text-sm font-medium text-gray-500">Data di Nascita</dt>
+                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2" id="dataNascita"></dd>
+                            </div>
+                            <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                <dt class="text-sm font-medium text-gray-500">Codice Fiscale</dt>
+                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2" id="codiceFiscale"></dd>
+                            </div>
+                            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                <dt class="text-sm font-medium text-gray-500">Indirizzo</dt>
+                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2" id="indirizzo"></dd>
+                            </div>
+                        </dl>
+                    </div>
+
+                    <!-- Contatti -->
+                    <div class="border-t border-gray-200">
+                        <h4 class="px-4 py-5 sm:px-6 text-lg font-medium text-gray-900">Contatti</h4>
+                        <dl>
+                            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                <dt class="text-sm font-medium text-gray-500">Genitore 1</dt>
+                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                    <div id="genitore1"></div>
+                                    <div class="mt-2 space-x-2">
+                                        <button class="text-blue-600 hover:text-blue-800" onclick="chiama('genitore1')">
+                                            📞 Chiama
+                                        </button>
+                                        <button class="text-green-600 hover:text-green-800" onclick="whatsapp('genitore1')">
+                                            💬 WhatsApp
+                                        </button>
+                                    </div>
+                                </dd>
+                            </div>
+                            <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                <dt class="text-sm font-medium text-gray-500">Genitore 2</dt>
+                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                    <div id="genitore2"></div>
+                                    <div class="mt-2 space-x-2">
+                                        <button class="text-blue-600 hover:text-blue-800" onclick="chiama('genitore2')">
+                                            📞 Chiama
+                                        </button>
+                                        <button class="text-green-600 hover:text-green-800" onclick="whatsapp('genitore2')">
+                                            💬 WhatsApp
+                                        </button>
+                                    </div>
+                                </dd>
+                            </div>
+                        </dl>
+                    </div>
+
+                    <!-- Informazioni Sanitarie -->
+                    <div class="border-t border-gray-200">
+                        <h4 class="px-4 py-5 sm:px-6 text-lg font-medium text-gray-900">Informazioni Sanitarie</h4>
+                        <dl>
+                            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                <dt class="text-sm font-medium text-gray-500">Gruppo Sanguigno</dt>
+                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2" id="gruppoSanguigno"></dd>
+                            </div>
+                            <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                <dt class="text-sm font-medium text-gray-500">Intolleranze Alimentari</dt>
+                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                    <div id="intolleranze"></div>
+                                    <button class="mt-2 text-blue-600 hover:text-blue-800" onclick="copiaIntolleranze()">
+                                        📋 Copia
+                                    </button>
+                                </dd>
+                            </div>
+                            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                <dt class="text-sm font-medium text-gray-500">Allergie</dt>
+                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2" id="allergie"></dd>
+                            </div>
+                            <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                <dt class="text-sm font-medium text-gray-500">Farmaci</dt>
+                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2" id="farmaci"></dd>
+                            </div>
+                        </dl>
+                    </div>
+
+                    <!-- Progressione Scout -->
+                    <div class="border-t border-gray-200">
+                        <h4 class="px-4 py-5 sm:px-6 text-lg font-medium text-gray-900">Progressione Scout</h4>
+                        <dl>
+                            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                <dt class="text-sm font-medium text-gray-500">Promessa</dt>
+                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2" id="promessa"></dd>
+                            </div>
+                            <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                <dt class="text-sm font-medium text-gray-500">Prima Traccia</dt>
+                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2" id="primaTraccia"></dd>
+                            </div>
+                            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                <dt class="text-sm font-medium text-gray-500">Seconda Traccia</dt>
+                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2" id="secondaTraccia"></dd>
+                            </div>
+                            <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                <dt class="text-sm font-medium text-gray-500">Terza Traccia</dt>
+                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2" id="terzaTraccia"></dd>
+                            </div>
+                        </dl>
+                    </div>
+
+                    <!-- Specialità -->
+                    <div class="border-t border-gray-200">
+                        <h4 class="px-4 py-5 sm:px-6 text-lg font-medium text-gray-900">Specialità</h4>
+                        <div class="px-4 py-5 sm:px-6">
+                            <div id="specialitaList" class="space-y-4">
+                                <!-- Le specialità verranno aggiunte dinamicamente -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Eventi -->
+                    <div class="border-t border-gray-200">
+                        <h4 class="px-4 py-5 sm:px-6 text-lg font-medium text-gray-900">Eventi</h4>
+                        <dl>
+                            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                <dt class="text-sm font-medium text-gray-500">Campi Estivi</dt>
+                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2" id="campiEstivi"></dd>
+                            </div>
+                            <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                <dt class="text-sm font-medium text-gray-500">Tecnicamp</dt>
+                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2" id="tecnicamp"></dd>
+                            </div>
+                            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                <dt class="text-sm font-medium text-gray-500">Jamboree</dt>
+                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2" id="jamboree"></dd>
+                            </div>
+                        </dl>
+                    </div>
+
+                    <!-- Documenti -->
+                    <div class="border-t border-gray-200">
+                        <h4 class="px-4 py-5 sm:px-6 text-lg font-medium text-gray-900">Documenti</h4>
+                        <dl>
+                            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                <dt class="text-sm font-medium text-gray-500">Quota Annuale</dt>
+                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2" id="quotaAnnuale"></dd>
+                            </div>
+                            <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                <dt class="text-sm font-medium text-gray-500">Modulo Iscrizione</dt>
+                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2" id="moduloIscrizione"></dd>
+                            </div>
+                            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                <dt class="text-sm font-medium text-gray-500">Modulo Sanitario</dt>
+                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2" id="moduloSanitario"></dd>
+                            </div>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script type="module">
+        import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { auth } from './js/firebaseConfig.js';
+        import { doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { db } from './js/firebaseConfig.js';
+
+        const loading = document.getElementById('loading');
+        const schedaContent = document.getElementById('schedaContent');
+        const logoutBtn = document.getElementById('logoutBtn');
+
+        // Funzioni di utilità
+        window.chiama = (tipo) => {
+            const numero = document.getElementById(`${tipo}Numero`).textContent;
+            window.location.href = `tel:${numero}`;
+        };
+
+        window.whatsapp = (tipo) => {
+            const numero = document.getElementById(`${tipo}Numero`).textContent;
+            window.location.href = `https://wa.me/${numero}`;
+        };
+
+        window.copiaIntolleranze = () => {
+            const intolleranze = document.getElementById('intolleranze').textContent;
+            navigator.clipboard.writeText(intolleranze);
+        };
+
+        // Verifica autenticazione e carica dati
+        onAuthStateChanged(auth, async (user) => {
+            if (!user) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const userId = urlParams.get('id') || user.uid;
+
+            try {
+                const userDoc = await getDoc(doc(db, "utenti", userId));
+                if (!userDoc.exists()) {
+                    throw new Error('Utente non trovato');
+                }
+
+                const userData = userDoc.data();
+                const currentUserDoc = await getDoc(doc(db, "utenti", user.uid));
+                const currentUserData = currentUserDoc.data();
+                const isStaff = currentUserData.staff && currentUserData.approvato;
+                const isOwner = user.uid === userId;
+
+                // Popola i dati della scheda
+                document.getElementById('nomeCompleto').textContent = `${userData.nome} ${userData.cognome}`;
+                document.getElementById('email').textContent = userData.email;
+
+                // Popola i dati anagrafici
+                if (userData.datiScheda?.anagrafici) {
+                    const anagrafici = userData.datiScheda.anagrafici;
+                    document.getElementById('dataNascita').textContent = anagrafici.dataNascita || '-';
+                    document.getElementById('codiceFiscale').textContent = anagrafici.codiceFiscale || '-';
+                    document.getElementById('indirizzo').textContent = anagrafici.indirizzo || '-';
+                }
+
+                // Popola i contatti
+                if (userData.datiScheda?.contatti) {
+                    const contatti = userData.datiScheda.contatti;
+                    if (contatti.genitore1) {
+                        document.getElementById('genitore1').innerHTML = `
+                            <div>${contatti.genitore1.nome}</div>
+                            <div>${contatti.genitore1.email}</div>
+                            <div id="genitore1Numero">${contatti.genitore1.numero}</div>
+                        `;
+                    }
+                    if (contatti.genitore2) {
+                        document.getElementById('genitore2').innerHTML = `
+                            <div>${contatti.genitore2.nome}</div>
+                            <div>${contatti.genitore2.email}</div>
+                            <div id="genitore2Numero">${contatti.genitore2.numero}</div>
+                        `;
+                    }
+                }
+
+                // Popola le informazioni sanitarie
+                if (userData.datiScheda?.sanitarie) {
+                    const sanitarie = userData.datiScheda.sanitarie;
+                    document.getElementById('gruppoSanguigno').textContent = sanitarie.gruppoSanguigno || '-';
+                    document.getElementById('intolleranze').textContent = sanitarie.intolleranze || '-';
+                    document.getElementById('allergie').textContent = sanitarie.allergie || '-';
+                    document.getElementById('farmaci').textContent = sanitarie.farmaci || '-';
+                }
+
+                // Popola la progressione scout
+                if (userData.datiScheda?.progressione) {
+                    const progressione = userData.datiScheda.progressione;
+                    document.getElementById('promessa').textContent = progressione.promessa || '-';
+                    document.getElementById('primaTraccia').textContent = progressione.primaTraccia || '-';
+                    document.getElementById('secondaTraccia').textContent = progressione.secondaTraccia || '-';
+                    document.getElementById('terzaTraccia').textContent = progressione.terzaTraccia || '-';
+                }
+
+                // Popola le specialità
+                if (userData.datiScheda?.specialita) {
+                    const specialitaList = document.getElementById('specialitaList');
+                    specialitaList.innerHTML = '';
+                    userData.datiScheda.specialita.forEach(specialita => {
+                        const div = document.createElement('div');
+                        div.className = 'bg-gray-50 p-4 rounded-lg';
+                        div.innerHTML = `
+                            <h5 class="font-medium">${specialita.nome}</h5>
+                            <div class="mt-2 space-y-1">
+                                <div>Prova 1: ${specialita.prova1 || '-'}</div>
+                                <div>Prova 2: ${specialita.prova2 || '-'}</div>
+                                <div>Prova 3: ${specialita.prova3 || '-'}</div>
+                                <div>CR: ${specialita.cr || '-'}</div>
+                            </div>
+                        `;
+                        specialitaList.appendChild(div);
+                    });
+                }
+
+                // Popola gli eventi
+                if (userData.datiScheda?.eventi) {
+                    const eventi = userData.datiScheda.eventi;
+                    document.getElementById('campiEstivi').textContent = eventi.campiEstivi || '-';
+                    document.getElementById('tecnicamp').textContent = eventi.tecnicamp || '-';
+                    document.getElementById('jamboree').textContent = eventi.jamboree || '-';
+                }
+
+                // Popola i documenti
+                if (userData.datiScheda?.documenti) {
+                    const documenti = userData.datiScheda.documenti;
+                    document.getElementById('quotaAnnuale').textContent = documenti.quotaAnnuale || '-';
+                    document.getElementById('moduloIscrizione').textContent = documenti.moduloIscrizione || '-';
+                    document.getElementById('moduloSanitario').textContent = documenti.moduloSanitario || '-';
+                }
+
+                // Mostra il contenuto
+                loading.classList.add('hidden');
+                schedaContent.classList.remove('hidden');
+
+            } catch (error) {
+                console.error('Errore nel caricamento della scheda:', error);
+                alert('Errore nel caricamento della scheda');
+            }
+        });
+
+        // Gestione logout
+        logoutBtn.addEventListener('click', async () => {
+            try {
+                await signOut(auth);
+                window.location.href = 'login.html';
+            } catch (error) {
+                console.error('Errore durante il logout:', error);
+            }
+        });
+    </script>
+</body>
+</html> 
