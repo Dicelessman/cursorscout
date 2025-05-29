@@ -633,8 +633,8 @@
 
                 // Verifica se l'utente corrente è staff
                 const currentUserDoc = await getDoc(doc(db, "utenti", user.uid));
-                const currentUserData = currentUserDoc.data();
-                isStaff = currentUserData.staff && currentUserData.approvato;
+                const loggedInUserData = currentUserDoc.data();
+                isStaff = loggedInUserData.staff && loggedInUserData.approvato;
 
                 // Mostra i controlli staff solo se l'utente è staff
                 if (isStaff) {
