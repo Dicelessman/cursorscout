@@ -85,7 +85,7 @@
     <script type="module">
         import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
         import { auth } from '/cursorscout/js/firebaseConfig.js';
-        import { collection, query, where, getDocs, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { collection, query, where, getDocs, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
         import { db } from '/cursorscout/js/firebaseConfig.js';
 
         const usersList = document.getElementById('usersList');
@@ -99,65 +99,93 @@
                 return;
             }
 
-            const userDoc = await getDoc(doc(db, "utenti", user.uid));
-            if (!userDoc.exists() || !userDoc.data().staff || !userDoc.data().approvato) {
-                window.location.href = '/cursorscout/scheda.html';
-                return;
-            }
+            try {
+                const userDoc = await getDoc(doc(db, "utenti", user.uid));
+                if (!userDoc.exists() || !userDoc.data().staff || !userDoc.data().approvato) {
+                    window.location.href = '/cursorscout/scheda.html';
+                    return;
+                }
 
-            loadUsers();
+                loadUsers();
+            } catch (error) {
+                console.error('Errore durante il controllo del ruolo:', error);
+                usersList.innerHTML = `
+                    <li class="px-6 py-4 text-center text-red-600">
+                        Si è verificato un errore durante il caricamento degli esploratori
+                    </li>
+                `;
+            }
         });
 
         // Carica la lista degli utenti
         async function loadUsers(searchTerm = '') {
-            const q = query(collection(db, "utenti"));
-            const querySnapshot = await getDocs(q);
-            
-            usersList.innerHTML = '';
-            
-            querySnapshot.forEach((doc) => {
-                const userData = doc.data();
-                if (userData.ruolo === 'esploratore' && 
-                    (searchTerm === '' || 
-                     userData.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                     userData.cognome.toLowerCase().includes(searchTerm.toLowerCase()))) {
-                    
-                    const li = document.createElement('li');
-                    li.className = 'user-card px-6 py-4 hover:bg-gray-50';
-                    li.innerHTML = `
-                        <div class="flex items-center justify-between">
-                            <div class="flex items-center space-x-4">
-                                <div class="flex-shrink-0">
-                                    <div class="h-12 w-12 rounded-full bg-blue-100 flex items-center justify-center">
-                                        <span class="text-blue-600 font-medium text-lg">
-                                            ${userData.nome.charAt(0)}${userData.cognome.charAt(0)}
-                                        </span>
+            try {
+                const q = query(collection(db, "utenti"));
+                const querySnapshot = await getDocs(q);
+                
+                usersList.innerHTML = '';
+                let hasExplorers = false;
+                
+                querySnapshot.forEach((doc) => {
+                    const userData = doc.data();
+                    if (userData.ruolo === 'esploratore' && 
+                        (searchTerm === '' || 
+                         userData.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         userData.cognome.toLowerCase().includes(searchTerm.toLowerCase()))) {
+                        
+                        hasExplorers = true;
+                        const li = document.createElement('li');
+                        li.className = 'user-card px-6 py-4 hover:bg-gray-50';
+                        li.innerHTML = `
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-4">
+                                    <div class="flex-shrink-0">
+                                        <div class="h-12 w-12 rounded-full bg-blue-100 flex items-center justify-center">
+                                            <span class="text-blue-600 font-medium text-lg">
+                                                ${userData.nome.charAt(0)}${userData.cognome.charAt(0)}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="text-sm font-medium text-gray-900">
+                                            ${userData.nome} ${userData.cognome}
+                                        </div>
+                                        <div class="text-sm text-gray-500">
+                                            ${userData.email}
+                                        </div>
                                     </div>
                                 </div>
-                                <div>
-                                    <div class="text-sm font-medium text-gray-900">
-                                        ${userData.nome} ${userData.cognome}
-                                    </div>
-                                    <div class="text-sm text-gray-500">
-                                        ${userData.email}
-                                    </div>
+                                <div class="flex space-x-2">
+                                    <a href="/cursorscout/scheda.html?id=${doc.id}" 
+                                       class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-lg text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
+                                        <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                        </svg>
+                                        Visualizza Scheda
+                                    </a>
                                 </div>
                             </div>
-                            <div class="flex space-x-2">
-                                <a href="/cursorscout/scheda.html?id=${doc.id}" 
-                                   class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-lg text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
-                                    <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                                    </svg>
-                                    Visualizza Scheda
-                                </a>
-                            </div>
-                        </div>
+                        `;
+                        usersList.appendChild(li);
+                    }
+                });
+
+                if (!hasExplorers) {
+                    usersList.innerHTML = `
+                        <li class="px-6 py-8 text-center text-gray-500">
+                            ${searchTerm ? 'Nessun esploratore trovato con questo nome' : 'Non ci sono ancora esploratori registrati'}
+                        </li>
                     `;
-                    usersList.appendChild(li);
                 }
-            });
+            } catch (error) {
+                console.error('Errore durante il caricamento degli esploratori:', error);
+                usersList.innerHTML = `
+                    <li class="px-6 py-4 text-center text-red-600">
+                        Si è verificato un errore durante il caricamento degli esploratori
+                    </li>
+                `;
+            }
         }
 
         // Gestione ricerca
