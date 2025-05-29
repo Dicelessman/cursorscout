@@ -7,20 +7,52 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script type="module" src="/cursorscout/js/firebaseConfig.js"></script>
     <script type="module" src="/cursorscout/js/auth.js"></script>
-    <script type="module" src="/cursorscout/js/dashboard.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        .nav-link {
+            transition: all 0.3s ease;
+        }
+        .nav-link:hover {
+            transform: translateY(-1px);
+        }
+        .search-input {
+            transition: all 0.3s ease;
+        }
+        .search-input:focus {
+            transform: translateY(-1px);
+        }
+        .user-card {
+            transition: all 0.3s ease;
+        }
+        .user-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+    </style>
 </head>
-<body class="bg-gray-100 min-h-screen">
+<body class="bg-gray-50 min-h-screen">
     <nav class="bg-white shadow-lg">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
-                <div class="flex">
+                <div class="flex items-center">
                     <div class="flex-shrink-0 flex items-center">
-                        <h1 class="text-xl font-bold text-blue-600">CursorScout</h1>
+                        <svg class="h-8 w-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                        </svg>
+                        <h1 class="ml-2 text-xl font-bold text-gray-900">CursorScout</h1>
                     </div>
                 </div>
-                <div class="flex items-center">
-                    <button id="logoutBtn" class="ml-4 px-4 py-2 text-sm text-red-600 hover:text-red-800">
-                        Logout
+                <div class="flex items-center space-x-4">
+                    <button id="logoutBtn" class="nav-link px-4 py-2 text-sm font-medium text-red-600 hover:text-red-800 rounded-lg hover:bg-red-50">
+                        <span class="flex items-center">
+                            <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                            </svg>
+                            Logout
+                        </span>
                     </button>
                 </div>
             </div>
@@ -29,15 +61,20 @@
 
     <main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         <div class="px-4 py-6 sm:px-0">
-            <div class="flex justify-between items-center mb-6">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-6 space-y-4 md:space-y-0">
                 <h2 class="text-2xl font-bold text-gray-900">Lista Esploratori</h2>
-                <div class="flex space-x-4">
+                <div class="relative w-full md:w-64">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                    </div>
                     <input type="text" id="searchInput" placeholder="Cerca esploratore..." 
-                           class="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                           class="search-input block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                 </div>
             </div>
 
-            <div class="bg-white shadow overflow-hidden sm:rounded-md">
+            <div class="bg-white shadow overflow-hidden sm:rounded-lg">
                 <ul id="usersList" class="divide-y divide-gray-200">
                     <!-- La lista degli utenti verrà popolata dinamicamente -->
                 </ul>
@@ -47,9 +84,9 @@
 
     <script type="module">
         import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-        import { auth } from './js/firebaseConfig.js';
+        import { auth } from '/cursorscout/js/firebaseConfig.js';
         import { collection, query, where, getDocs, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-        import { db } from './js/firebaseConfig.js';
+        import { db } from '/cursorscout/js/firebaseConfig.js';
 
         const usersList = document.getElementById('usersList');
         const searchInput = document.getElementById('searchInput');
@@ -58,13 +95,13 @@
         // Verifica autenticazione e ruolo
         onAuthStateChanged(auth, async (user) => {
             if (!user) {
-                window.location.href = 'login.html';
+                window.location.href = '/cursorscout/login.html';
                 return;
             }
 
             const userDoc = await getDoc(doc(db, "utenti", user.uid));
             if (!userDoc.exists() || !userDoc.data().staff || !userDoc.data().approvato) {
-                window.location.href = 'scheda.html';
+                window.location.href = '/cursorscout/scheda.html';
                 return;
             }
 
@@ -86,11 +123,18 @@
                      userData.cognome.toLowerCase().includes(searchTerm.toLowerCase()))) {
                     
                     const li = document.createElement('li');
-                    li.className = 'px-6 py-4 hover:bg-gray-50';
+                    li.className = 'user-card px-6 py-4 hover:bg-gray-50';
                     li.innerHTML = `
                         <div class="flex items-center justify-between">
-                            <div class="flex items-center">
-                                <div class="ml-4">
+                            <div class="flex items-center space-x-4">
+                                <div class="flex-shrink-0">
+                                    <div class="h-12 w-12 rounded-full bg-blue-100 flex items-center justify-center">
+                                        <span class="text-blue-600 font-medium text-lg">
+                                            ${userData.nome.charAt(0)}${userData.cognome.charAt(0)}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div>
                                     <div class="text-sm font-medium text-gray-900">
                                         ${userData.nome} ${userData.cognome}
                                     </div>
@@ -100,8 +144,12 @@
                                 </div>
                             </div>
                             <div class="flex space-x-2">
-                                <a href="scheda.html?id=${doc.id}" 
-                                   class="inline-flex items-center px-3 py-1 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                <a href="/cursorscout/scheda.html?id=${doc.id}" 
+                                   class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-lg text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
+                                    <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                    </svg>
                                     Visualizza Scheda
                                 </a>
                             </div>
@@ -121,7 +169,7 @@
         logoutBtn.addEventListener('click', async () => {
             try {
                 await signOut(auth);
-                window.location.href = 'login.html';
+                window.location.href = '/cursorscout/login.html';
             } catch (error) {
                 console.error('Errore durante il logout:', error);
             }
