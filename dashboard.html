@@ -161,6 +161,12 @@
                     const userData = doc.data();
                     console.log('Utente trovato:', userData);
                     
+                    // Verifichiamo che i campi necessari esistano
+                    if (!userData.nome || !userData.cognome) {
+                        console.warn('Utente con dati incompleti:', doc.id, userData);
+                        return; // Saltiamo questo utente
+                    }
+                    
                     if (searchTerm === '' || 
                         userData.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
                         userData.cognome.toLowerCase().includes(searchTerm.toLowerCase())) {
@@ -183,7 +189,7 @@
                                             ${userData.nome} ${userData.cognome}
                                         </div>
                                         <div class="text-sm text-gray-500">
-                                            ${userData.email}
+                                            ${userData.email || 'Email non disponibile'}
                                         </div>
                                     </div>
                                 </div>
