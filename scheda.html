@@ -33,9 +33,31 @@
 
             <div id="schedaContent" class="hidden">
                 <div class="bg-white shadow overflow-hidden sm:rounded-lg">
-                    <div class="px-4 py-5 sm:px-6">
-                        <h3 class="text-lg leading-6 font-medium text-gray-900" id="nomeCompleto"></h3>
-                        <p class="mt-1 max-w-2xl text-sm text-gray-500" id="email"></p>
+                    <div class="px-4 py-5 sm:px-6 flex justify-between items-center">
+                        <div>
+                            <h3 class="text-lg leading-6 font-medium text-gray-900" id="nomeCompleto"></h3>
+                            <p class="mt-1 max-w-2xl text-sm text-gray-500" id="email"></p>
+                        </div>
+                        <div id="staffControls" class="hidden">
+                            <button id="editBtn" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                                </svg>
+                                Modifica
+                            </button>
+                            <button id="saveBtn" class="hidden inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                                <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                Salva
+                            </button>
+                            <button id="cancelBtn" class="hidden inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                                <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                </svg>
+                                Annulla
+                            </button>
+                        </div>
                     </div>
 
                     <!-- Dati Anagrafici -->
@@ -43,15 +65,24 @@
                         <dl>
                             <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt class="text-sm font-medium text-gray-500">Data di Nascita</dt>
-                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2" id="dataNascita"></dd>
+                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                    <span id="dataNascitaDisplay"></span>
+                                    <input type="date" id="dataNascitaEdit" class="hidden w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                </dd>
                             </div>
                             <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt class="text-sm font-medium text-gray-500">Codice Fiscale</dt>
-                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2" id="codiceFiscale"></dd>
+                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                    <span id="codiceFiscaleDisplay"></span>
+                                    <input type="text" id="codiceFiscaleEdit" class="hidden w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                </dd>
                             </div>
                             <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt class="text-sm font-medium text-gray-500">Indirizzo</dt>
-                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2" id="indirizzo"></dd>
+                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                    <span id="indirizzoDisplay"></span>
+                                    <input type="text" id="indirizzoEdit" class="hidden w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                </dd>
                             </div>
                         </dl>
                     </div>
@@ -63,7 +94,12 @@
                             <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt class="text-sm font-medium text-gray-500">Genitore 1</dt>
                                 <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                    <div id="genitore1"></div>
+                                    <div id="genitore1Display"></div>
+                                    <div id="genitore1Edit" class="hidden space-y-2">
+                                        <input type="text" id="genitore1NomeEdit" placeholder="Nome" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                        <input type="email" id="genitore1EmailEdit" placeholder="Email" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                        <input type="tel" id="genitore1NumeroEdit" placeholder="Numero" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                    </div>
                                     <div class="mt-2 space-x-2">
                                         <button class="text-blue-600 hover:text-blue-800" onclick="chiama('genitore1')">
                                             📞 Chiama
@@ -77,7 +113,12 @@
                             <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt class="text-sm font-medium text-gray-500">Genitore 2</dt>
                                 <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                    <div id="genitore2"></div>
+                                    <div id="genitore2Display"></div>
+                                    <div id="genitore2Edit" class="hidden space-y-2">
+                                        <input type="text" id="genitore2NomeEdit" placeholder="Nome" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                        <input type="email" id="genitore2EmailEdit" placeholder="Email" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                        <input type="tel" id="genitore2NumeroEdit" placeholder="Numero" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                    </div>
                                     <div class="mt-2 space-x-2">
                                         <button class="text-blue-600 hover:text-blue-800" onclick="chiama('genitore2')">
                                             📞 Chiama
@@ -97,12 +138,26 @@
                         <dl>
                             <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt class="text-sm font-medium text-gray-500">Gruppo Sanguigno</dt>
-                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2" id="gruppoSanguigno"></dd>
+                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                    <span id="gruppoSanguignoDisplay"></span>
+                                    <select id="gruppoSanguignoEdit" class="hidden w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                        <option value="">Seleziona gruppo sanguigno</option>
+                                        <option value="A+">A+</option>
+                                        <option value="A-">A-</option>
+                                        <option value="B+">B+</option>
+                                        <option value="B-">B-</option>
+                                        <option value="AB+">AB+</option>
+                                        <option value="AB-">AB-</option>
+                                        <option value="0+">0+</option>
+                                        <option value="0-">0-</option>
+                                    </select>
+                                </dd>
                             </div>
                             <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt class="text-sm font-medium text-gray-500">Intolleranze Alimentari</dt>
                                 <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                    <div id="intolleranze"></div>
+                                    <span id="intolleranzeDisplay"></span>
+                                    <textarea id="intolleranzeEdit" class="hidden w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" rows="3"></textarea>
                                     <button class="mt-2 text-blue-600 hover:text-blue-800" onclick="copiaIntolleranze()">
                                         📋 Copia
                                     </button>
@@ -110,11 +165,17 @@
                             </div>
                             <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt class="text-sm font-medium text-gray-500">Allergie</dt>
-                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2" id="allergie"></dd>
+                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                    <span id="allergieDisplay"></span>
+                                    <textarea id="allergieEdit" class="hidden w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" rows="3"></textarea>
+                                </dd>
                             </div>
                             <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt class="text-sm font-medium text-gray-500">Farmaci</dt>
-                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2" id="farmaci"></dd>
+                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                    <span id="farmaciDisplay"></span>
+                                    <textarea id="farmaciEdit" class="hidden w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" rows="3"></textarea>
+                                </dd>
                             </div>
                         </dl>
                     </div>
@@ -125,19 +186,40 @@
                         <dl>
                             <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt class="text-sm font-medium text-gray-500">Promessa</dt>
-                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2" id="promessa"></dd>
+                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                    <span id="promessaDisplay"></span>
+                                    <input type="date" id="promessaEdit" class="hidden w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                </dd>
                             </div>
                             <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt class="text-sm font-medium text-gray-500">Prima Traccia</dt>
-                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2" id="primaTraccia"></dd>
+                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                    <div id="primaTracciaDisplay"></div>
+                                    <div id="primaTracciaEdit" class="hidden space-y-2">
+                                        <input type="date" id="primaTracciaDataEdit" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                        <input type="text" id="primaTracciaSfidaEdit" placeholder="Sfida" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                    </div>
+                                </dd>
                             </div>
                             <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt class="text-sm font-medium text-gray-500">Seconda Traccia</dt>
-                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2" id="secondaTraccia"></dd>
+                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                    <div id="secondaTracciaDisplay"></div>
+                                    <div id="secondaTracciaEdit" class="hidden space-y-2">
+                                        <input type="date" id="secondaTracciaDataEdit" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                        <input type="text" id="secondaTracciaSfidaEdit" placeholder="Sfida" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                    </div>
+                                </dd>
                             </div>
                             <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt class="text-sm font-medium text-gray-500">Terza Traccia</dt>
-                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2" id="terzaTraccia"></dd>
+                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                    <div id="terzaTracciaDisplay"></div>
+                                    <div id="terzaTracciaEdit" class="hidden space-y-2">
+                                        <input type="date" id="terzaTracciaDataEdit" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                        <input type="text" id="terzaTracciaSfidaEdit" placeholder="Sfida" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                    </div>
+                                </dd>
                             </div>
                         </dl>
                     </div>
@@ -149,6 +231,12 @@
                             <div id="specialitaList" class="space-y-4">
                                 <!-- Le specialità verranno aggiunte dinamicamente -->
                             </div>
+                            <button id="aggiungiSpecialitaBtn" class="hidden mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                                </svg>
+                                Aggiungi Specialità
+                            </button>
                         </div>
                     </div>
 
@@ -158,15 +246,37 @@
                         <dl>
                             <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt class="text-sm font-medium text-gray-500">Campi Estivi</dt>
-                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2" id="campiEstivi"></dd>
+                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                    <div id="campiEstiviDisplay"></div>
+                                    <div id="campiEstiviEdit" class="hidden space-y-2">
+                                        <input type="number" id="campoEstivo1Edit" placeholder="Campo 1" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                        <input type="number" id="campoEstivo2Edit" placeholder="Campo 2" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                        <input type="number" id="campoEstivo3Edit" placeholder="Campo 3" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                        <input type="number" id="campoEstivo4Edit" placeholder="Campo 4" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                    </div>
+                                </dd>
                             </div>
                             <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt class="text-sm font-medium text-gray-500">Tecnicamp</dt>
-                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2" id="tecnicamp"></dd>
+                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                    <div id="tecnicampDisplay"></div>
+                                    <div id="tecnicampEdit" class="hidden space-y-2">
+                                        <div class="grid grid-cols-2 gap-4">
+                                            <input type="number" id="tecnicamp1AnnoEdit" placeholder="Anno" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                            <input type="text" id="tecnicamp1CorsoEdit" placeholder="Corso" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                        </div>
+                                    </div>
+                                </dd>
                             </div>
                             <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt class="text-sm font-medium text-gray-500">Jamboree</dt>
-                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2" id="jamboree"></dd>
+                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                    <div id="jamboreeDisplay"></div>
+                                    <div id="jamboreeEdit" class="hidden space-y-2">
+                                        <input type="number" id="jamboreeAnnoEdit" placeholder="Anno" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                        <input type="text" id="jamboreeLuogoEdit" placeholder="Luogo" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                    </div>
+                                </dd>
                             </div>
                         </dl>
                     </div>
@@ -177,15 +287,24 @@
                         <dl>
                             <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt class="text-sm font-medium text-gray-500">Quota Annuale</dt>
-                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2" id="quotaAnnuale"></dd>
+                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                    <span id="quotaAnnualeDisplay"></span>
+                                    <input type="text" id="quotaAnnualeEdit" class="hidden w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                </dd>
                             </div>
                             <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt class="text-sm font-medium text-gray-500">Modulo Iscrizione</dt>
-                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2" id="moduloIscrizione"></dd>
+                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                    <span id="moduloIscrizioneDisplay"></span>
+                                    <input type="text" id="moduloIscrizioneEdit" class="hidden w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                </dd>
                             </div>
                             <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt class="text-sm font-medium text-gray-500">Modulo Sanitario</dt>
-                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2" id="moduloSanitario"></dd>
+                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                    <span id="moduloSanitarioDisplay"></span>
+                                    <input type="text" id="moduloSanitarioEdit" class="hidden w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                </dd>
                             </div>
                         </dl>
                     </div>
@@ -203,6 +322,15 @@
         const loading = document.getElementById('loading');
         const schedaContent = document.getElementById('schedaContent');
         const logoutBtn = document.getElementById('logoutBtn');
+        const staffControls = document.getElementById('staffControls');
+        const editBtn = document.getElementById('editBtn');
+        const saveBtn = document.getElementById('saveBtn');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const aggiungiSpecialitaBtn = document.getElementById('aggiungiSpecialitaBtn');
+
+        let currentUserData = null;
+        let isStaff = false;
+        let isEditing = false;
 
         // Funzioni di utilità
         window.chiama = (tipo) => {
@@ -216,9 +344,273 @@
         };
 
         window.copiaIntolleranze = () => {
-            const intolleranze = document.getElementById('intolleranze').textContent;
+            const intolleranze = document.getElementById('intolleranzeDisplay').textContent;
             navigator.clipboard.writeText(intolleranze);
         };
+
+        // Funzioni per la gestione della modalità di modifica
+        function enterEditMode() {
+            isEditing = true;
+            editBtn.classList.add('hidden');
+            saveBtn.classList.remove('hidden');
+            cancelBtn.classList.remove('hidden');
+            aggiungiSpecialitaBtn.classList.remove('hidden');
+
+            // Mostra tutti i campi di modifica
+            document.querySelectorAll('[id$="Edit"]').forEach(el => {
+                if (el.id !== 'editBtn' && el.id !== 'saveBtn' && el.id !== 'cancelBtn') {
+                    el.classList.remove('hidden');
+                }
+            });
+
+            // Nascondi tutti i campi di visualizzazione
+            document.querySelectorAll('[id$="Display"]').forEach(el => {
+                el.classList.add('hidden');
+            });
+        }
+
+        function exitEditMode() {
+            isEditing = false;
+            editBtn.classList.remove('hidden');
+            saveBtn.classList.add('hidden');
+            cancelBtn.classList.add('hidden');
+            aggiungiSpecialitaBtn.classList.add('hidden');
+
+            // Nascondi tutti i campi di modifica
+            document.querySelectorAll('[id$="Edit"]').forEach(el => {
+                if (el.id !== 'editBtn' && el.id !== 'saveBtn' && el.id !== 'cancelBtn') {
+                    el.classList.add('hidden');
+                }
+            });
+
+            // Mostra tutti i campi di visualizzazione
+            document.querySelectorAll('[id$="Display"]').forEach(el => {
+                el.classList.remove('hidden');
+            });
+
+            // Ripristina i valori originali
+            populateDisplayFields(currentUserData);
+        }
+
+        // Funzioni per il popolamento dei campi
+        function populateDisplayFields(userData) {
+            // Dati anagrafici
+            document.getElementById('dataNascitaDisplay').textContent = userData.datiScheda?.anagrafici?.dataNascita || '-';
+            document.getElementById('codiceFiscaleDisplay').textContent = userData.datiScheda?.anagrafici?.codiceFiscale || '-';
+            document.getElementById('indirizzoDisplay').textContent = userData.datiScheda?.anagrafici?.indirizzo || '-';
+
+            // Contatti
+            const genitore1 = userData.datiScheda?.contatti?.genitore1;
+            const genitore2 = userData.datiScheda?.contatti?.genitore2;
+
+            document.getElementById('genitore1Display').innerHTML = genitore1 ? `
+                <div>Nome: ${genitore1.nome || '-'}</div>
+                <div>Email: ${genitore1.email || '-'}</div>
+                <div id="genitore1Numero">Numero: ${genitore1.numero || '-'}</div>
+            ` : 'Nessun dato disponibile';
+
+            document.getElementById('genitore2Display').innerHTML = genitore2 ? `
+                <div>Nome: ${genitore2.nome || '-'}</div>
+                <div>Email: ${genitore2.email || '-'}</div>
+                <div id="genitore2Numero">Numero: ${genitore2.numero || '-'}</div>
+            ` : 'Nessun dato disponibile';
+
+            // Informazioni sanitarie
+            document.getElementById('gruppoSanguignoDisplay').textContent = userData.datiScheda?.sanitarie?.gruppoSanguigno || '-';
+            document.getElementById('intolleranzeDisplay').textContent = userData.datiScheda?.sanitarie?.intolleranze || '-';
+            document.getElementById('allergieDisplay').textContent = userData.datiScheda?.sanitarie?.allergie || '-';
+            document.getElementById('farmaciDisplay').textContent = userData.datiScheda?.sanitarie?.farmaci || '-';
+
+            // Progressione scout
+            document.getElementById('promessaDisplay').textContent = userData.datiScheda?.progressione?.promessa || '-';
+            
+            const primaTraccia = userData.datiScheda?.progressione?.primaTraccia;
+            document.getElementById('primaTracciaDisplay').innerHTML = primaTraccia ? `
+                <div>Data: ${primaTraccia.data || '-'}</div>
+                <div>Sfida: ${primaTraccia.sfida || '-'}</div>
+            ` : 'Nessun dato disponibile';
+
+            const secondaTraccia = userData.datiScheda?.progressione?.secondaTraccia;
+            document.getElementById('secondaTracciaDisplay').innerHTML = secondaTraccia ? `
+                <div>Data: ${secondaTraccia.data || '-'}</div>
+                <div>Sfida: ${secondaTraccia.sfida || '-'}</div>
+            ` : 'Nessun dato disponibile';
+
+            const terzaTraccia = userData.datiScheda?.progressione?.terzaTraccia;
+            document.getElementById('terzaTracciaDisplay').innerHTML = terzaTraccia ? `
+                <div>Data: ${terzaTraccia.data || '-'}</div>
+                <div>Sfida: ${terzaTraccia.sfida || '-'}</div>
+            ` : 'Nessun dato disponibile';
+
+            // Eventi
+            const campiEstivi = userData.datiScheda?.eventi?.campiEstivi;
+            document.getElementById('campiEstiviDisplay').innerHTML = campiEstivi ? `
+                <div>Campo 1: ${campiEstivi[1] || '-'}</div>
+                <div>Campo 2: ${campiEstivi[2] || '-'}</div>
+                <div>Campo 3: ${campiEstivi[3] || '-'}</div>
+                <div>Campo 4: ${campiEstivi[4] || '-'}</div>
+            ` : 'Nessun dato disponibile';
+
+            const tecnicamp = userData.datiScheda?.eventi?.tecnicamp;
+            document.getElementById('tecnicampDisplay').innerHTML = tecnicamp ? `
+                <div>Tecnicamp 1: ${tecnicamp[1]?.anno || '-'} - ${tecnicamp[1]?.corso || '-'}</div>
+            ` : 'Nessun dato disponibile';
+
+            const jamboree = userData.datiScheda?.eventi?.jamboree;
+            document.getElementById('jamboreeDisplay').innerHTML = jamboree ? `
+                <div>Anno: ${jamboree.anno || '-'}</div>
+                <div>Luogo: ${jamboree.luogo || '-'}</div>
+            ` : 'Nessun dato disponibile';
+
+            // Documenti
+            document.getElementById('quotaAnnualeDisplay').textContent = userData.datiScheda?.documenti?.quotaAnnuale || '-';
+            document.getElementById('moduloIscrizioneDisplay').textContent = userData.datiScheda?.documenti?.moduloIscrizione || '-';
+            document.getElementById('moduloSanitarioDisplay').textContent = userData.datiScheda?.documenti?.moduloSanitario || '-';
+        }
+
+        function populateEditFields(userData) {
+            // Dati anagrafici
+            document.getElementById('dataNascitaEdit').value = userData.datiScheda?.anagrafici?.dataNascita || '';
+            document.getElementById('codiceFiscaleEdit').value = userData.datiScheda?.anagrafici?.codiceFiscale || '';
+            document.getElementById('indirizzoEdit').value = userData.datiScheda?.anagrafici?.indirizzo || '';
+
+            // Contatti
+            const genitore1 = userData.datiScheda?.contatti?.genitore1;
+            const genitore2 = userData.datiScheda?.contatti?.genitore2;
+
+            document.getElementById('genitore1NomeEdit').value = genitore1?.nome || '';
+            document.getElementById('genitore1EmailEdit').value = genitore1?.email || '';
+            document.getElementById('genitore1NumeroEdit').value = genitore1?.numero || '';
+
+            document.getElementById('genitore2NomeEdit').value = genitore2?.nome || '';
+            document.getElementById('genitore2EmailEdit').value = genitore2?.email || '';
+            document.getElementById('genitore2NumeroEdit').value = genitore2?.numero || '';
+
+            // Informazioni sanitarie
+            document.getElementById('gruppoSanguignoEdit').value = userData.datiScheda?.sanitarie?.gruppoSanguigno || '';
+            document.getElementById('intolleranzeEdit').value = userData.datiScheda?.sanitarie?.intolleranze || '';
+            document.getElementById('allergieEdit').value = userData.datiScheda?.sanitarie?.allergie || '';
+            document.getElementById('farmaciEdit').value = userData.datiScheda?.sanitarie?.farmaci || '';
+
+            // Progressione scout
+            document.getElementById('promessaEdit').value = userData.datiScheda?.progressione?.promessa || '';
+            
+            const primaTraccia = userData.datiScheda?.progressione?.primaTraccia;
+            document.getElementById('primaTracciaDataEdit').value = primaTraccia?.data || '';
+            document.getElementById('primaTracciaSfidaEdit').value = primaTraccia?.sfida || '';
+
+            const secondaTraccia = userData.datiScheda?.progressione?.secondaTraccia;
+            document.getElementById('secondaTracciaDataEdit').value = secondaTraccia?.data || '';
+            document.getElementById('secondaTracciaSfidaEdit').value = secondaTraccia?.sfida || '';
+
+            const terzaTraccia = userData.datiScheda?.progressione?.terzaTraccia;
+            document.getElementById('terzaTracciaDataEdit').value = terzaTraccia?.data || '';
+            document.getElementById('terzaTracciaSfidaEdit').value = terzaTraccia?.sfida || '';
+
+            // Eventi
+            const campiEstivi = userData.datiScheda?.eventi?.campiEstivi;
+            document.getElementById('campoEstivo1Edit').value = campiEstivi?.[1] || '';
+            document.getElementById('campoEstivo2Edit').value = campiEstivi?.[2] || '';
+            document.getElementById('campoEstivo3Edit').value = campiEstivi?.[3] || '';
+            document.getElementById('campoEstivo4Edit').value = campiEstivi?.[4] || '';
+
+            const tecnicamp = userData.datiScheda?.eventi?.tecnicamp;
+            document.getElementById('tecnicamp1AnnoEdit').value = tecnicamp?.[1]?.anno || '';
+            document.getElementById('tecnicamp1CorsoEdit').value = tecnicamp?.[1]?.corso || '';
+
+            const jamboree = userData.datiScheda?.eventi?.jamboree;
+            document.getElementById('jamboreeAnnoEdit').value = jamboree?.anno || '';
+            document.getElementById('jamboreeLuogoEdit').value = jamboree?.luogo || '';
+
+            // Documenti
+            document.getElementById('quotaAnnualeEdit').value = userData.datiScheda?.documenti?.quotaAnnuale || '';
+            document.getElementById('moduloIscrizioneEdit').value = userData.datiScheda?.documenti?.moduloIscrizione || '';
+            document.getElementById('moduloSanitarioEdit').value = userData.datiScheda?.documenti?.moduloSanitario || '';
+        }
+
+        // Funzione per salvare i dati
+        async function saveData(userId) {
+            const userData = {
+                datiScheda: {
+                    anagrafici: {
+                        dataNascita: document.getElementById('dataNascitaEdit').value,
+                        codiceFiscale: document.getElementById('codiceFiscaleEdit').value,
+                        indirizzo: document.getElementById('indirizzoEdit').value
+                    },
+                    contatti: {
+                        genitore1: {
+                            nome: document.getElementById('genitore1NomeEdit').value,
+                            email: document.getElementById('genitore1EmailEdit').value,
+                            numero: document.getElementById('genitore1NumeroEdit').value
+                        },
+                        genitore2: {
+                            nome: document.getElementById('genitore2NomeEdit').value,
+                            email: document.getElementById('genitore2EmailEdit').value,
+                            numero: document.getElementById('genitore2NumeroEdit').value
+                        }
+                    },
+                    sanitarie: {
+                        gruppoSanguigno: document.getElementById('gruppoSanguignoEdit').value,
+                        intolleranze: document.getElementById('intolleranzeEdit').value,
+                        allergie: document.getElementById('allergieEdit').value,
+                        farmaci: document.getElementById('farmaciEdit').value
+                    },
+                    progressione: {
+                        promessa: document.getElementById('promessaEdit').value,
+                        primaTraccia: {
+                            data: document.getElementById('primaTracciaDataEdit').value,
+                            sfida: document.getElementById('primaTracciaSfidaEdit').value
+                        },
+                        secondaTraccia: {
+                            data: document.getElementById('secondaTracciaDataEdit').value,
+                            sfida: document.getElementById('secondaTracciaSfidaEdit').value
+                        },
+                        terzaTraccia: {
+                            data: document.getElementById('terzaTracciaDataEdit').value,
+                            sfida: document.getElementById('terzaTracciaSfidaEdit').value
+                        }
+                    },
+                    eventi: {
+                        campiEstivi: {
+                            1: document.getElementById('campoEstivo1Edit').value,
+                            2: document.getElementById('campoEstivo2Edit').value,
+                            3: document.getElementById('campoEstivo3Edit').value,
+                            4: document.getElementById('campoEstivo4Edit').value
+                        },
+                        tecnicamp: {
+                            1: {
+                                anno: document.getElementById('tecnicamp1AnnoEdit').value,
+                                corso: document.getElementById('tecnicamp1CorsoEdit').value
+                            }
+                        },
+                        jamboree: {
+                            anno: document.getElementById('jamboreeAnnoEdit').value,
+                            luogo: document.getElementById('jamboreeLuogoEdit').value
+                        }
+                    },
+                    documenti: {
+                        quotaAnnuale: document.getElementById('quotaAnnualeEdit').value,
+                        moduloIscrizione: document.getElementById('moduloIscrizioneEdit').value,
+                        moduloSanitario: document.getElementById('moduloSanitarioEdit').value
+                    }
+                }
+            };
+
+            try {
+                await updateDoc(doc(db, "utenti", userId), userData);
+                currentUserData = { ...currentUserData, ...userData };
+                exitEditMode();
+                populateDisplayFields(currentUserData);
+            } catch (error) {
+                console.error("Errore durante il salvataggio:", error);
+                alert("Si è verificato un errore durante il salvataggio dei dati.");
+            }
+        }
+
+        // Event listeners
+        editBtn.addEventListener('click', enterEditMode);
+        saveBtn.addEventListener('click', () => saveData(currentUserData.uid));
+        cancelBtn.addEventListener('click', exitEditMode);
 
         // Verifica autenticazione e carica dati
         onAuthStateChanged(auth, async (user) => {
@@ -236,114 +628,42 @@
                     throw new Error('Utente non trovato');
                 }
 
-                const userData = userDoc.data();
+                currentUserData = { ...userDoc.data(), uid: userId };
                 const currentUserDoc = await getDoc(doc(db, "utenti", user.uid));
                 const currentUserData = currentUserDoc.data();
-                const isStaff = currentUserData.staff && currentUserData.approvato;
-                const isOwner = user.uid === userId;
+                isStaff = currentUserData.staff && currentUserData.approvato;
+
+                // Mostra i controlli staff solo se l'utente è staff
+                if (isStaff) {
+                    staffControls.classList.remove('hidden');
+                }
 
                 // Popola i dati della scheda
-                document.getElementById('nomeCompleto').textContent = `${userData.nome} ${userData.cognome}`;
-                document.getElementById('email').textContent = userData.email;
+                document.getElementById('nomeCompleto').textContent = `${currentUserData.nome} ${currentUserData.cognome}`;
+                document.getElementById('email').textContent = currentUserData.email;
 
-                // Popola i dati anagrafici
-                if (userData.datiScheda?.anagrafici) {
-                    const anagrafici = userData.datiScheda.anagrafici;
-                    document.getElementById('dataNascita').textContent = anagrafici.dataNascita || '-';
-                    document.getElementById('codiceFiscale').textContent = anagrafici.codiceFiscale || '-';
-                    document.getElementById('indirizzo').textContent = anagrafici.indirizzo || '-';
-                }
+                // Popola i campi di visualizzazione
+                populateDisplayFields(currentUserData);
 
-                // Popola i contatti
-                if (userData.datiScheda?.contatti) {
-                    const contatti = userData.datiScheda.contatti;
-                    if (contatti.genitore1) {
-                        document.getElementById('genitore1').innerHTML = `
-                            <div>${contatti.genitore1.nome}</div>
-                            <div>${contatti.genitore1.email}</div>
-                            <div id="genitore1Numero">${contatti.genitore1.numero}</div>
-                        `;
-                    }
-                    if (contatti.genitore2) {
-                        document.getElementById('genitore2').innerHTML = `
-                            <div>${contatti.genitore2.nome}</div>
-                            <div>${contatti.genitore2.email}</div>
-                            <div id="genitore2Numero">${contatti.genitore2.numero}</div>
-                        `;
-                    }
-                }
+                // Popola i campi di modifica
+                populateEditFields(currentUserData);
 
-                // Popola le informazioni sanitarie
-                if (userData.datiScheda?.sanitarie) {
-                    const sanitarie = userData.datiScheda.sanitarie;
-                    document.getElementById('gruppoSanguigno').textContent = sanitarie.gruppoSanguigno || '-';
-                    document.getElementById('intolleranze').textContent = sanitarie.intolleranze || '-';
-                    document.getElementById('allergie').textContent = sanitarie.allergie || '-';
-                    document.getElementById('farmaci').textContent = sanitarie.farmaci || '-';
-                }
-
-                // Popola la progressione scout
-                if (userData.datiScheda?.progressione) {
-                    const progressione = userData.datiScheda.progressione;
-                    document.getElementById('promessa').textContent = progressione.promessa || '-';
-                    document.getElementById('primaTraccia').textContent = progressione.primaTraccia || '-';
-                    document.getElementById('secondaTraccia').textContent = progressione.secondaTraccia || '-';
-                    document.getElementById('terzaTraccia').textContent = progressione.terzaTraccia || '-';
-                }
-
-                // Popola le specialità
-                if (userData.datiScheda?.specialita) {
-                    const specialitaList = document.getElementById('specialitaList');
-                    specialitaList.innerHTML = '';
-                    userData.datiScheda.specialita.forEach(specialita => {
-                        const div = document.createElement('div');
-                        div.className = 'bg-gray-50 p-4 rounded-lg';
-                        div.innerHTML = `
-                            <h5 class="font-medium">${specialita.nome}</h5>
-                            <div class="mt-2 space-y-1">
-                                <div>Prova 1: ${specialita.prova1 || '-'}</div>
-                                <div>Prova 2: ${specialita.prova2 || '-'}</div>
-                                <div>Prova 3: ${specialita.prova3 || '-'}</div>
-                                <div>CR: ${specialita.cr || '-'}</div>
-                            </div>
-                        `;
-                        specialitaList.appendChild(div);
-                    });
-                }
-
-                // Popola gli eventi
-                if (userData.datiScheda?.eventi) {
-                    const eventi = userData.datiScheda.eventi;
-                    document.getElementById('campiEstivi').textContent = eventi.campiEstivi || '-';
-                    document.getElementById('tecnicamp').textContent = eventi.tecnicamp || '-';
-                    document.getElementById('jamboree').textContent = eventi.jamboree || '-';
-                }
-
-                // Popola i documenti
-                if (userData.datiScheda?.documenti) {
-                    const documenti = userData.datiScheda.documenti;
-                    document.getElementById('quotaAnnuale').textContent = documenti.quotaAnnuale || '-';
-                    document.getElementById('moduloIscrizione').textContent = documenti.moduloIscrizione || '-';
-                    document.getElementById('moduloSanitario').textContent = documenti.moduloSanitario || '-';
-                }
-
-                // Mostra il contenuto
+                // Nascondi il loading e mostra il contenuto
                 loading.classList.add('hidden');
                 schedaContent.classList.remove('hidden');
-
             } catch (error) {
-                console.error('Errore nel caricamento della scheda:', error);
-                alert('Errore nel caricamento della scheda');
+                console.error("Errore durante il caricamento:", error);
+                alert("Si è verificato un errore durante il caricamento dei dati.");
             }
         });
 
-        // Gestione logout
+        // Logout
         logoutBtn.addEventListener('click', async () => {
             try {
                 await signOut(auth);
                 window.location.href = 'login.html';
             } catch (error) {
-                console.error('Errore durante il logout:', error);
+                console.error("Errore durante il logout:", error);
             }
         });
     </script>
