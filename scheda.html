@@ -36,7 +36,9 @@
                     <div class="px-4 py-5 sm:px-6 flex justify-between items-center">
                         <div>
                             <h3 class="text-lg leading-6 font-medium text-gray-900" id="nomeCompleto"></h3>
-                            <p class="mt-1 max-w-2xl text-sm text-gray-500" id="email"></p>
+                            <p class="mt-1 max-w-2xl text-sm text-gray-500">
+                                <a href="#" id="emailLink" class="text-blue-600 hover:text-blue-800"></a>
+                            </p>
                         </div>
                         <div id="staffControls" class="hidden">
                             <button id="editBtn" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
@@ -82,6 +84,21 @@
                                 <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                                     <span id="indirizzoDisplay"></span>
                                     <input type="text" id="indirizzoEdit" class="hidden w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                </dd>
+                            </div>
+                            <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                <dt class="text-sm font-medium text-gray-500">Telefono</dt>
+                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                    <div id="telefonoDisplay"></div>
+                                    <input type="tel" id="telefonoEdit" class="hidden w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                    <div class="mt-2 space-x-2">
+                                        <button class="text-blue-600 hover:text-blue-800" onclick="chiama('esploratore')">
+                                            📞 Chiama
+                                        </button>
+                                        <button class="text-green-600 hover:text-green-800" onclick="whatsapp('esploratore')">
+                                            💬 WhatsApp
+                                        </button>
+                                    </div>
                                 </dd>
                             </div>
                         </dl>
@@ -296,6 +313,18 @@
                                     </div>
                                 </dd>
                             </div>
+                            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                <dt class="text-sm font-medium text-gray-500">Jamboree</dt>
+                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                    <div id="jamboreeDisplay"></div>
+                                    <div id="jamboreeEdit" class="hidden space-y-4">
+                                        <div class="grid grid-cols-2 gap-4">
+                                            <input type="text" id="jamboreeLuogoEdit" placeholder="Luogo" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                            <input type="date" id="jamboreeAnnoEdit" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                        </div>
+                                    </div>
+                                </dd>
+                            </div>
                         </dl>
                     </div>
 
@@ -412,12 +441,22 @@
 
         // Funzioni di utilità
         window.chiama = (tipo) => {
-            const numero = document.getElementById(`${tipo}Numero`).textContent;
+            let numero;
+            if (tipo === 'esploratore') {
+                numero = document.getElementById('telefonoDisplay').textContent;
+            } else {
+                numero = document.getElementById(`${tipo}Numero`).textContent;
+            }
             window.location.href = `tel:${numero}`;
         };
 
         window.whatsapp = (tipo) => {
-            const numero = document.getElementById(`${tipo}Numero`).textContent;
+            let numero;
+            if (tipo === 'esploratore') {
+                numero = document.getElementById('telefonoDisplay').textContent;
+            } else {
+                numero = document.getElementById(`${tipo}Numero`).textContent;
+            }
             window.location.href = `https://wa.me/${numero}`;
         };
 
@@ -476,6 +515,7 @@
             document.getElementById('dataNascitaDisplay').textContent = userData.datiScheda?.anagrafici?.dataNascita || '-';
             document.getElementById('codiceFiscaleDisplay').textContent = userData.datiScheda?.anagrafici?.codiceFiscale || '-';
             document.getElementById('indirizzoDisplay').textContent = userData.datiScheda?.anagrafici?.indirizzo || '-';
+            document.getElementById('telefonoDisplay').textContent = userData.datiScheda?.anagrafici?.telefono || '-';
 
             // Contatti
             const genitore1 = userData.datiScheda?.contatti?.genitore1;
@@ -537,6 +577,11 @@
                 <div>Tecnicamp 4: ${tecnicamp[4]?.luogo || '-'} - ${tecnicamp[4]?.corso || '-'} (${tecnicamp[4]?.anno || '-'})</div>
             ` : 'Nessun dato disponibile';
 
+            const jamboree = userData.datiScheda?.eventi?.jamboree;
+            document.getElementById('jamboreeDisplay').innerHTML = jamboree ? `
+                <div>Jamboree: ${jamboree.luogo || '-'} (${jamboree.anno || '-'})</div>
+            ` : 'Nessun dato disponibile';
+
             // Documenti
             const quotaAnnuale = userData.datiScheda?.documenti?.quotaAnnuale;
             document.getElementById('quotaAnnualeDisplay').innerHTML = quotaAnnuale ? `
@@ -573,6 +618,7 @@
             document.getElementById('dataNascitaEdit').value = userData.datiScheda?.anagrafici?.dataNascita || '';
             document.getElementById('codiceFiscaleEdit').value = userData.datiScheda?.anagrafici?.codiceFiscale || '';
             document.getElementById('indirizzoEdit').value = userData.datiScheda?.anagrafici?.indirizzo || '';
+            document.getElementById('telefonoEdit').value = userData.datiScheda?.anagrafici?.telefono || '';
 
             // Contatti
             const genitore1 = userData.datiScheda?.contatti?.genitore1;
@@ -632,6 +678,10 @@
             document.getElementById('tecnicamp4CorsoEdit').value = tecnicamp?.[4]?.corso || '';
             document.getElementById('tecnicamp4AnnoEdit').value = tecnicamp?.[4]?.anno || '';
 
+            const jamboree = userData.datiScheda?.eventi?.jamboree;
+            document.getElementById('jamboreeLuogoEdit').value = jamboree?.luogo || '';
+            document.getElementById('jamboreeAnnoEdit').value = jamboree?.anno || '';
+
             // Documenti
             const quotaAnnuale = userData.datiScheda?.documenti?.quotaAnnuale;
             const moduloIscrizione = userData.datiScheda?.documenti?.moduloIscrizione;
@@ -675,7 +725,8 @@
                     anagrafici: {
                         dataNascita: document.getElementById('dataNascitaEdit').value,
                         codiceFiscale: document.getElementById('codiceFiscaleEdit').value,
-                        indirizzo: document.getElementById('indirizzoEdit').value
+                        indirizzo: document.getElementById('indirizzoEdit').value,
+                        telefono: document.getElementById('telefonoEdit').value
                     },
                     contatti: {
                         genitore1: {
@@ -750,6 +801,10 @@
                                 corso: document.getElementById('tecnicamp4CorsoEdit').value,
                                 anno: document.getElementById('tecnicamp4AnnoEdit').value
                             }
+                        },
+                        jamboree: {
+                            luogo: document.getElementById('jamboreeLuogoEdit').value,
+                            anno: document.getElementById('jamboreeAnnoEdit').value
                         }
                     },
                     documenti: {
@@ -825,10 +880,38 @@
             }
         }
 
+        // Funzione per aggiungere una nuova specialità
+        function aggiungiSpecialita() {
+            const specialitaList = document.getElementById('specialitaList');
+            const specialitaId = Date.now(); // ID univoco per la specialità
+
+            const specialitaDiv = document.createElement('div');
+            specialitaDiv.className = 'flex items-center space-x-4';
+            specialitaDiv.innerHTML = `
+                <input type="text" placeholder="Nome Specialità" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                <input type="date" class="px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                <button onclick="rimuoviSpecialita(${specialitaId})" class="text-red-600 hover:text-red-800">
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                    </svg>
+                </button>
+            `;
+            specialitaDiv.id = `specialita-${specialitaId}`;
+            specialitaList.appendChild(specialitaDiv);
+        }
+
+        function rimuoviSpecialita(id) {
+            const specialita = document.getElementById(`specialita-${id}`);
+            if (specialita) {
+                specialita.remove();
+            }
+        }
+
         // Event listeners
         editBtn.addEventListener('click', enterEditMode);
         saveBtn.addEventListener('click', () => saveData(currentUserData.uid));
         cancelBtn.addEventListener('click', exitEditMode);
+        aggiungiSpecialitaBtn.addEventListener('click', aggiungiSpecialita);
 
         // Verifica autenticazione e carica dati
         onAuthStateChanged(auth, async (user) => {
@@ -862,6 +945,8 @@
                 // Popola i dati della scheda
                 document.getElementById('nomeCompleto').textContent = `${userData.nome} ${userData.cognome}`;
                 document.getElementById('email').textContent = userData.email;
+                document.getElementById('emailLink').textContent = userData.email;
+                document.getElementById('emailLink').href = `mailto:${userData.email}`;
 
                 // Popola i campi di visualizzazione
                 populateDisplayFields(userData);
