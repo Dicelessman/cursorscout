@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CursorScout - Reparto Scout</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script type="module" src="js/firebaseConfig.js"></script>
-    <script type="module" src="js/auth.js"></script>
+    <script type="module" src="/cursorscout/js/firebaseConfig.js"></script>
+    <script type="module" src="/cursorscout/js/auth.js"></script>
 </head>
 <body class="bg-gray-100 min-h-screen">
     <div id="loading" class="flex items-center justify-center min-h-screen">
@@ -15,15 +15,15 @@
 
     <script type="module">
         import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-        import { auth } from './js/firebaseConfig.js';
+        import { auth } from '/cursorscout/js/firebaseConfig.js';
 
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 // Se l'utente è loggato, reindirizza alla dashboard
-                window.location.href = 'dashboard.html';
+                window.location.href = '/cursorscout/dashboard.html';
             } else {
                 // Se l'utente non è loggato, reindirizza al login
-                window.location.href = 'login.html';
+                window.location.href = '/cursorscout/login.html';
             }
         });
     </script>
