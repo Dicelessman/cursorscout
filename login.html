@@ -109,11 +109,21 @@
                     const userData = userDoc.data();
                     if (userData.staff && !userData.approvato) {
                         await auth.signOut();
-                        throw new Error("Il tuo account staff è in attesa di approvazione");
+                        errorMessage.innerHTML = `
+                            <p class="font-medium">Account in attesa di approvazione</p>
+                            <p class="mt-2">Il tuo account staff è ancora in fase di revisione. Riceverai una notifica quando sarà approvato.</p>
+                        `;
+                        errorMessage.classList.remove('hidden');
+                        return;
                     }
                 }
                 
-                window.location.href = '/cursorscout/dashboard.html';
+                // Reindirizza in base al ruolo
+                if (userDoc.exists() && userDoc.data().staff && userDoc.data().approvato) {
+                    window.location.href = '/cursorscout/dashboard.html';
+                } else {
+                    window.location.href = '/cursorscout/scheda.html';
+                }
             } catch (error) {
                 errorMessage.textContent = error.message;
                 errorMessage.classList.remove('hidden');
