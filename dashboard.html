@@ -95,17 +95,37 @@
         // Verifica autenticazione e ruolo
         onAuthStateChanged(auth, async (user) => {
             if (!user) {
+                console.log('Nessun utente autenticato');
                 window.location.href = '/cursorscout/login.html';
                 return;
             }
 
             try {
+                console.log('Utente autenticato:', user.uid);
                 const userDoc = await getDoc(doc(db, "utenti", user.uid));
-                if (!userDoc.exists() || !userDoc.data().staff || !userDoc.data().approvato) {
+                
+                if (!userDoc.exists()) {
+                    console.log('Documento utente non trovato');
+                    window.location.href = '/cursorscout/login.html';
+                    return;
+                }
+
+                const userData = userDoc.data();
+                console.log('Dati utente:', userData);
+
+                if (!userData.staff) {
+                    console.log('Utente non è staff');
                     window.location.href = '/cursorscout/scheda.html';
                     return;
                 }
 
+                if (!userData.approvato) {
+                    console.log('Staff non approvato');
+                    window.location.href = '/cursorscout/scheda.html';
+                    return;
+                }
+
+                console.log('Utente staff approvato, carico la lista esploratori');
                 loadUsers();
             } catch (error) {
                 console.error('Errore durante il controllo del ruolo:', error);
@@ -120,14 +140,19 @@
         // Carica la lista degli utenti
         async function loadUsers(searchTerm = '') {
             try {
+                console.log('Caricamento lista esploratori...');
                 const q = query(collection(db, "utenti"));
                 const querySnapshot = await getDocs(q);
                 
                 usersList.innerHTML = '';
                 let hasExplorers = false;
+                let totalUsers = 0;
                 
                 querySnapshot.forEach((doc) => {
+                    totalUsers++;
                     const userData = doc.data();
+                    console.log('Utente trovato:', userData);
+                    
                     if (userData.ruolo === 'esploratore' && 
                         (searchTerm === '' || 
                          userData.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -170,6 +195,8 @@
                         usersList.appendChild(li);
                     }
                 });
+
+                console.log(`Totale utenti: ${totalUsers}, Esploratori trovati: ${hasExplorers}`);
 
                 if (!hasExplorers) {
                     usersList.innerHTML = `
