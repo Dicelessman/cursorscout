@@ -248,11 +248,23 @@
                                 <dt class="text-sm font-medium text-gray-500">Campi Estivi</dt>
                                 <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                                     <div id="campiEstiviDisplay"></div>
-                                    <div id="campiEstiviEdit" class="hidden space-y-2">
-                                        <input type="number" id="campoEstivo1Edit" placeholder="Campo 1" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                                        <input type="number" id="campoEstivo2Edit" placeholder="Campo 2" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                                        <input type="number" id="campoEstivo3Edit" placeholder="Campo 3" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                                        <input type="number" id="campoEstivo4Edit" placeholder="Campo 4" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                    <div id="campiEstiviEdit" class="hidden space-y-4">
+                                        <div class="grid grid-cols-2 gap-4">
+                                            <input type="text" id="campoEstivo1LuogoEdit" placeholder="Luogo" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                            <input type="date" id="campoEstivo1AnnoEdit" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                        </div>
+                                        <div class="grid grid-cols-2 gap-4">
+                                            <input type="text" id="campoEstivo2LuogoEdit" placeholder="Luogo" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                            <input type="date" id="campoEstivo2AnnoEdit" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                        </div>
+                                        <div class="grid grid-cols-2 gap-4">
+                                            <input type="text" id="campoEstivo3LuogoEdit" placeholder="Luogo" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                            <input type="date" id="campoEstivo3AnnoEdit" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                        </div>
+                                        <div class="grid grid-cols-2 gap-4">
+                                            <input type="text" id="campoEstivo4LuogoEdit" placeholder="Luogo" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                            <input type="date" id="campoEstivo4AnnoEdit" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                        </div>
                                     </div>
                                 </dd>
                             </div>
@@ -260,21 +272,27 @@
                                 <dt class="text-sm font-medium text-gray-500">Tecnicamp</dt>
                                 <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                                     <div id="tecnicampDisplay"></div>
-                                    <div id="tecnicampEdit" class="hidden space-y-2">
-                                        <div class="grid grid-cols-2 gap-4">
-                                            <input type="number" id="tecnicamp1AnnoEdit" placeholder="Anno" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                    <div id="tecnicampEdit" class="hidden space-y-4">
+                                        <div class="grid grid-cols-3 gap-4">
+                                            <input type="text" id="tecnicamp1LuogoEdit" placeholder="Luogo" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                                             <input type="text" id="tecnicamp1CorsoEdit" placeholder="Corso" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                            <input type="date" id="tecnicamp1AnnoEdit" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                                         </div>
-                                    </div>
-                                </dd>
-                            </div>
-                            <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                <dt class="text-sm font-medium text-gray-500">Jamboree</dt>
-                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                    <div id="jamboreeDisplay"></div>
-                                    <div id="jamboreeEdit" class="hidden space-y-2">
-                                        <input type="number" id="jamboreeAnnoEdit" placeholder="Anno" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                                        <input type="text" id="jamboreeLuogoEdit" placeholder="Luogo" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                        <div class="grid grid-cols-3 gap-4">
+                                            <input type="text" id="tecnicamp2LuogoEdit" placeholder="Luogo" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                            <input type="text" id="tecnicamp2CorsoEdit" placeholder="Corso" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                            <input type="date" id="tecnicamp2AnnoEdit" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                        </div>
+                                        <div class="grid grid-cols-3 gap-4">
+                                            <input type="text" id="tecnicamp3LuogoEdit" placeholder="Luogo" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                            <input type="text" id="tecnicamp3CorsoEdit" placeholder="Corso" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                            <input type="date" id="tecnicamp3AnnoEdit" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                        </div>
+                                        <div class="grid grid-cols-3 gap-4">
+                                            <input type="text" id="tecnicamp4LuogoEdit" placeholder="Luogo" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                            <input type="text" id="tecnicamp4CorsoEdit" placeholder="Corso" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                            <input type="date" id="tecnicamp4AnnoEdit" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                        </div>
                                     </div>
                                 </dd>
                             </div>
@@ -288,22 +306,82 @@
                             <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt class="text-sm font-medium text-gray-500">Quota Annuale</dt>
                                 <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                    <span id="quotaAnnualeDisplay"></span>
-                                    <input type="text" id="quotaAnnualeEdit" class="hidden w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                    <div id="quotaAnnualeDisplay"></div>
+                                    <div id="quotaAnnualeEdit" class="hidden space-y-4">
+                                        <div class="flex items-center space-x-4">
+                                            <input type="date" id="quotaAnnuale1DataEdit" class="px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                            <input type="checkbox" id="quotaAnnuale1CheckEdit" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                        </div>
+                                        <div class="flex items-center space-x-4">
+                                            <input type="date" id="quotaAnnuale2DataEdit" class="px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                            <input type="checkbox" id="quotaAnnuale2CheckEdit" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                        </div>
+                                        <div class="flex items-center space-x-4">
+                                            <input type="date" id="quotaAnnuale3DataEdit" class="px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                            <input type="checkbox" id="quotaAnnuale3CheckEdit" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                        </div>
+                                        <div class="flex items-center space-x-4">
+                                            <input type="date" id="quotaAnnuale4DataEdit" class="px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                            <input type="checkbox" id="quotaAnnuale4CheckEdit" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                        </div>
+                                    </div>
                                 </dd>
                             </div>
                             <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt class="text-sm font-medium text-gray-500">Modulo Iscrizione</dt>
                                 <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                    <span id="moduloIscrizioneDisplay"></span>
-                                    <input type="text" id="moduloIscrizioneEdit" class="hidden w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                    <div id="moduloIscrizioneDisplay"></div>
+                                    <div id="moduloIscrizioneEdit" class="hidden">
+                                        <input type="checkbox" id="moduloIscrizioneCheckEdit" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                    </div>
                                 </dd>
                             </div>
                             <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                 <dt class="text-sm font-medium text-gray-500">Modulo Sanitario</dt>
                                 <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                    <span id="moduloSanitarioDisplay"></span>
-                                    <input type="text" id="moduloSanitarioEdit" class="hidden w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                    <div id="moduloSanitarioDisplay"></div>
+                                    <div id="moduloSanitarioEdit" class="hidden space-y-4">
+                                        <div class="flex items-center space-x-4">
+                                            <input type="date" id="moduloSanitario1DataEdit" class="px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                            <input type="checkbox" id="moduloSanitario1CheckEdit" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                        </div>
+                                        <div class="flex items-center space-x-4">
+                                            <input type="date" id="moduloSanitario2DataEdit" class="px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                            <input type="checkbox" id="moduloSanitario2CheckEdit" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                        </div>
+                                        <div class="flex items-center space-x-4">
+                                            <input type="date" id="moduloSanitario3DataEdit" class="px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                            <input type="checkbox" id="moduloSanitario3CheckEdit" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                        </div>
+                                        <div class="flex items-center space-x-4">
+                                            <input type="date" id="moduloSanitario4DataEdit" class="px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                            <input type="checkbox" id="moduloSanitario4CheckEdit" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                        </div>
+                                    </div>
+                                </dd>
+                            </div>
+                            <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                <dt class="text-sm font-medium text-gray-500">Modulo Privacy</dt>
+                                <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                    <div id="moduloPrivacyDisplay"></div>
+                                    <div id="moduloPrivacyEdit" class="hidden space-y-4">
+                                        <div class="flex items-center space-x-4">
+                                            <input type="date" id="moduloPrivacy1DataEdit" class="px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                            <input type="checkbox" id="moduloPrivacy1CheckEdit" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                        </div>
+                                        <div class="flex items-center space-x-4">
+                                            <input type="date" id="moduloPrivacy2DataEdit" class="px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                            <input type="checkbox" id="moduloPrivacy2CheckEdit" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                        </div>
+                                        <div class="flex items-center space-x-4">
+                                            <input type="date" id="moduloPrivacy3DataEdit" class="px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                            <input type="checkbox" id="moduloPrivacy3CheckEdit" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                        </div>
+                                        <div class="flex items-center space-x-4">
+                                            <input type="date" id="moduloPrivacy4DataEdit" class="px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                                            <input type="checkbox" id="moduloPrivacy4CheckEdit" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                        </div>
+                                    </div>
                                 </dd>
                             </div>
                         </dl>
@@ -445,27 +523,49 @@
             // Eventi
             const campiEstivi = userData.datiScheda?.eventi?.campiEstivi;
             document.getElementById('campiEstiviDisplay').innerHTML = campiEstivi ? `
-                <div>Campo 1: ${campiEstivi[1] || '-'}</div>
-                <div>Campo 2: ${campiEstivi[2] || '-'}</div>
-                <div>Campo 3: ${campiEstivi[3] || '-'}</div>
-                <div>Campo 4: ${campiEstivi[4] || '-'}</div>
+                <div>Campo 1: ${campiEstivi[1]?.luogo || '-'} (${campiEstivi[1]?.anno || '-'})</div>
+                <div>Campo 2: ${campiEstivi[2]?.luogo || '-'} (${campiEstivi[2]?.anno || '-'})</div>
+                <div>Campo 3: ${campiEstivi[3]?.luogo || '-'} (${campiEstivi[3]?.anno || '-'})</div>
+                <div>Campo 4: ${campiEstivi[4]?.luogo || '-'} (${campiEstivi[4]?.anno || '-'})</div>
             ` : 'Nessun dato disponibile';
 
             const tecnicamp = userData.datiScheda?.eventi?.tecnicamp;
             document.getElementById('tecnicampDisplay').innerHTML = tecnicamp ? `
-                <div>Tecnicamp 1: ${tecnicamp[1]?.anno || '-'} - ${tecnicamp[1]?.corso || '-'}</div>
-            ` : 'Nessun dato disponibile';
-
-            const jamboree = userData.datiScheda?.eventi?.jamboree;
-            document.getElementById('jamboreeDisplay').innerHTML = jamboree ? `
-                <div>Anno: ${jamboree.anno || '-'}</div>
-                <div>Luogo: ${jamboree.luogo || '-'}</div>
+                <div>Tecnicamp 1: ${tecnicamp[1]?.luogo || '-'} - ${tecnicamp[1]?.corso || '-'} (${tecnicamp[1]?.anno || '-'})</div>
+                <div>Tecnicamp 2: ${tecnicamp[2]?.luogo || '-'} - ${tecnicamp[2]?.corso || '-'} (${tecnicamp[2]?.anno || '-'})</div>
+                <div>Tecnicamp 3: ${tecnicamp[3]?.luogo || '-'} - ${tecnicamp[3]?.corso || '-'} (${tecnicamp[3]?.anno || '-'})</div>
+                <div>Tecnicamp 4: ${tecnicamp[4]?.luogo || '-'} - ${tecnicamp[4]?.corso || '-'} (${tecnicamp[4]?.anno || '-'})</div>
             ` : 'Nessun dato disponibile';
 
             // Documenti
-            document.getElementById('quotaAnnualeDisplay').textContent = userData.datiScheda?.documenti?.quotaAnnuale || '-';
-            document.getElementById('moduloIscrizioneDisplay').textContent = userData.datiScheda?.documenti?.moduloIscrizione || '-';
-            document.getElementById('moduloSanitarioDisplay').textContent = userData.datiScheda?.documenti?.moduloSanitario || '-';
+            const quotaAnnuale = userData.datiScheda?.documenti?.quotaAnnuale;
+            document.getElementById('quotaAnnualeDisplay').innerHTML = quotaAnnuale ? `
+                <div>Quota 1: ${quotaAnnuale[1]?.data || '-'} ${quotaAnnuale[1]?.pagata ? '✓' : '✗'}</div>
+                <div>Quota 2: ${quotaAnnuale[2]?.data || '-'} ${quotaAnnuale[2]?.pagata ? '✓' : '✗'}</div>
+                <div>Quota 3: ${quotaAnnuale[3]?.data || '-'} ${quotaAnnuale[3]?.pagata ? '✓' : '✗'}</div>
+                <div>Quota 4: ${quotaAnnuale[4]?.data || '-'} ${quotaAnnuale[4]?.pagata ? '✓' : '✗'}</div>
+            ` : 'Nessun dato disponibile';
+
+            const moduloIscrizione = userData.datiScheda?.documenti?.moduloIscrizione;
+            document.getElementById('moduloIscrizioneDisplay').innerHTML = moduloIscrizione ? `
+                <div>Modulo Iscrizione: ${moduloIscrizione.presente ? '✓' : '✗'}</div>
+            ` : 'Nessun dato disponibile';
+
+            const moduloSanitario = userData.datiScheda?.documenti?.moduloSanitario;
+            document.getElementById('moduloSanitarioDisplay').innerHTML = moduloSanitario ? `
+                <div>Modulo 1: ${moduloSanitario[1]?.data || '-'} ${moduloSanitario[1]?.presente ? '✓' : '✗'}</div>
+                <div>Modulo 2: ${moduloSanitario[2]?.data || '-'} ${moduloSanitario[2]?.presente ? '✓' : '✗'}</div>
+                <div>Modulo 3: ${moduloSanitario[3]?.data || '-'} ${moduloSanitario[3]?.presente ? '✓' : '✗'}</div>
+                <div>Modulo 4: ${moduloSanitario[4]?.data || '-'} ${moduloSanitario[4]?.presente ? '✓' : '✗'}</div>
+            ` : 'Nessun dato disponibile';
+
+            const moduloPrivacy = userData.datiScheda?.documenti?.moduloPrivacy;
+            document.getElementById('moduloPrivacyDisplay').innerHTML = moduloPrivacy ? `
+                <div>Modulo 1: ${moduloPrivacy[1]?.data || '-'} ${moduloPrivacy[1]?.presente ? '✓' : '✗'}</div>
+                <div>Modulo 2: ${moduloPrivacy[2]?.data || '-'} ${moduloPrivacy[2]?.presente ? '✓' : '✗'}</div>
+                <div>Modulo 3: ${moduloPrivacy[3]?.data || '-'} ${moduloPrivacy[3]?.presente ? '✓' : '✗'}</div>
+                <div>Modulo 4: ${moduloPrivacy[4]?.data || '-'} ${moduloPrivacy[4]?.presente ? '✓' : '✗'}</div>
+            ` : 'Nessun dato disponibile';
         }
 
         function populateEditFields(userData) {
@@ -509,23 +609,58 @@
 
             // Eventi
             const campiEstivi = userData.datiScheda?.eventi?.campiEstivi;
-            document.getElementById('campoEstivo1Edit').value = campiEstivi?.[1] || '';
-            document.getElementById('campoEstivo2Edit').value = campiEstivi?.[2] || '';
-            document.getElementById('campoEstivo3Edit').value = campiEstivi?.[3] || '';
-            document.getElementById('campoEstivo4Edit').value = campiEstivi?.[4] || '';
+            document.getElementById('campoEstivo1LuogoEdit').value = campiEstivi?.[1]?.luogo || '';
+            document.getElementById('campoEstivo1AnnoEdit').value = campiEstivi?.[1]?.anno || '';
+            document.getElementById('campoEstivo2LuogoEdit').value = campiEstivi?.[2]?.luogo || '';
+            document.getElementById('campoEstivo2AnnoEdit').value = campiEstivi?.[2]?.anno || '';
+            document.getElementById('campoEstivo3LuogoEdit').value = campiEstivi?.[3]?.luogo || '';
+            document.getElementById('campoEstivo3AnnoEdit').value = campiEstivi?.[3]?.anno || '';
+            document.getElementById('campoEstivo4LuogoEdit').value = campiEstivi?.[4]?.luogo || '';
+            document.getElementById('campoEstivo4AnnoEdit').value = campiEstivi?.[4]?.anno || '';
 
             const tecnicamp = userData.datiScheda?.eventi?.tecnicamp;
-            document.getElementById('tecnicamp1AnnoEdit').value = tecnicamp?.[1]?.anno || '';
+            document.getElementById('tecnicamp1LuogoEdit').value = tecnicamp?.[1]?.luogo || '';
             document.getElementById('tecnicamp1CorsoEdit').value = tecnicamp?.[1]?.corso || '';
-
-            const jamboree = userData.datiScheda?.eventi?.jamboree;
-            document.getElementById('jamboreeAnnoEdit').value = jamboree?.anno || '';
-            document.getElementById('jamboreeLuogoEdit').value = jamboree?.luogo || '';
+            document.getElementById('tecnicamp1AnnoEdit').value = tecnicamp?.[1]?.anno || '';
+            document.getElementById('tecnicamp2LuogoEdit').value = tecnicamp?.[2]?.luogo || '';
+            document.getElementById('tecnicamp2CorsoEdit').value = tecnicamp?.[2]?.corso || '';
+            document.getElementById('tecnicamp2AnnoEdit').value = tecnicamp?.[2]?.anno || '';
+            document.getElementById('tecnicamp3LuogoEdit').value = tecnicamp?.[3]?.luogo || '';
+            document.getElementById('tecnicamp3CorsoEdit').value = tecnicamp?.[3]?.corso || '';
+            document.getElementById('tecnicamp3AnnoEdit').value = tecnicamp?.[3]?.anno || '';
+            document.getElementById('tecnicamp4LuogoEdit').value = tecnicamp?.[4]?.luogo || '';
+            document.getElementById('tecnicamp4CorsoEdit').value = tecnicamp?.[4]?.corso || '';
+            document.getElementById('tecnicamp4AnnoEdit').value = tecnicamp?.[4]?.anno || '';
 
             // Documenti
-            document.getElementById('quotaAnnualeEdit').value = userData.datiScheda?.documenti?.quotaAnnuale || '';
-            document.getElementById('moduloIscrizioneEdit').value = userData.datiScheda?.documenti?.moduloIscrizione || '';
-            document.getElementById('moduloSanitarioEdit').value = userData.datiScheda?.documenti?.moduloSanitario || '';
+            document.getElementById('quotaAnnuale1DataEdit').value = quotaAnnuale?.[1]?.data || '';
+            document.getElementById('quotaAnnuale1CheckEdit').checked = quotaAnnuale?.[1]?.pagata || false;
+            document.getElementById('quotaAnnuale2DataEdit').value = quotaAnnuale?.[2]?.data || '';
+            document.getElementById('quotaAnnuale2CheckEdit').checked = quotaAnnuale?.[2]?.pagata || false;
+            document.getElementById('quotaAnnuale3DataEdit').value = quotaAnnuale?.[3]?.data || '';
+            document.getElementById('quotaAnnuale3CheckEdit').checked = quotaAnnuale?.[3]?.pagata || false;
+            document.getElementById('quotaAnnuale4DataEdit').value = quotaAnnuale?.[4]?.data || '';
+            document.getElementById('quotaAnnuale4CheckEdit').checked = quotaAnnuale?.[4]?.pagata || false;
+
+            document.getElementById('moduloIscrizioneCheckEdit').checked = moduloIscrizione?.presente || false;
+
+            document.getElementById('moduloSanitario1DataEdit').value = moduloSanitario?.[1]?.data || '';
+            document.getElementById('moduloSanitario1CheckEdit').checked = moduloSanitario?.[1]?.presente || false;
+            document.getElementById('moduloSanitario2DataEdit').value = moduloSanitario?.[2]?.data || '';
+            document.getElementById('moduloSanitario2CheckEdit').checked = moduloSanitario?.[2]?.presente || false;
+            document.getElementById('moduloSanitario3DataEdit').value = moduloSanitario?.[3]?.data || '';
+            document.getElementById('moduloSanitario3CheckEdit').checked = moduloSanitario?.[3]?.presente || false;
+            document.getElementById('moduloSanitario4DataEdit').value = moduloSanitario?.[4]?.data || '';
+            document.getElementById('moduloSanitario4CheckEdit').checked = moduloSanitario?.[4]?.presente || false;
+
+            document.getElementById('moduloPrivacy1DataEdit').value = moduloPrivacy?.[1]?.data || '';
+            document.getElementById('moduloPrivacy1CheckEdit').checked = moduloPrivacy?.[1]?.presente || false;
+            document.getElementById('moduloPrivacy2DataEdit').value = moduloPrivacy?.[2]?.data || '';
+            document.getElementById('moduloPrivacy2CheckEdit').checked = moduloPrivacy?.[2]?.presente || false;
+            document.getElementById('moduloPrivacy3DataEdit').value = moduloPrivacy?.[3]?.data || '';
+            document.getElementById('moduloPrivacy3CheckEdit').checked = moduloPrivacy?.[3]?.presente || false;
+            document.getElementById('moduloPrivacy4DataEdit').value = moduloPrivacy?.[4]?.data || '';
+            document.getElementById('moduloPrivacy4CheckEdit').checked = moduloPrivacy?.[4]?.presente || false;
         }
 
         // Funzione per salvare i dati
@@ -572,26 +707,104 @@
                     },
                     eventi: {
                         campiEstivi: {
-                            1: document.getElementById('campoEstivo1Edit').value,
-                            2: document.getElementById('campoEstivo2Edit').value,
-                            3: document.getElementById('campoEstivo3Edit').value,
-                            4: document.getElementById('campoEstivo4Edit').value
+                            1: {
+                                luogo: document.getElementById('campoEstivo1LuogoEdit').value,
+                                anno: document.getElementById('campoEstivo1AnnoEdit').value
+                            },
+                            2: {
+                                luogo: document.getElementById('campoEstivo2LuogoEdit').value,
+                                anno: document.getElementById('campoEstivo2AnnoEdit').value
+                            },
+                            3: {
+                                luogo: document.getElementById('campoEstivo3LuogoEdit').value,
+                                anno: document.getElementById('campoEstivo3AnnoEdit').value
+                            },
+                            4: {
+                                luogo: document.getElementById('campoEstivo4LuogoEdit').value,
+                                anno: document.getElementById('campoEstivo4AnnoEdit').value
+                            }
                         },
                         tecnicamp: {
                             1: {
-                                anno: document.getElementById('tecnicamp1AnnoEdit').value,
-                                corso: document.getElementById('tecnicamp1CorsoEdit').value
+                                luogo: document.getElementById('tecnicamp1LuogoEdit').value,
+                                corso: document.getElementById('tecnicamp1CorsoEdit').value,
+                                anno: document.getElementById('tecnicamp1AnnoEdit').value
+                            },
+                            2: {
+                                luogo: document.getElementById('tecnicamp2LuogoEdit').value,
+                                corso: document.getElementById('tecnicamp2CorsoEdit').value,
+                                anno: document.getElementById('tecnicamp2AnnoEdit').value
+                            },
+                            3: {
+                                luogo: document.getElementById('tecnicamp3LuogoEdit').value,
+                                corso: document.getElementById('tecnicamp3CorsoEdit').value,
+                                anno: document.getElementById('tecnicamp3AnnoEdit').value
+                            },
+                            4: {
+                                luogo: document.getElementById('tecnicamp4LuogoEdit').value,
+                                corso: document.getElementById('tecnicamp4CorsoEdit').value,
+                                anno: document.getElementById('tecnicamp4AnnoEdit').value
                             }
-                        },
-                        jamboree: {
-                            anno: document.getElementById('jamboreeAnnoEdit').value,
-                            luogo: document.getElementById('jamboreeLuogoEdit').value
                         }
                     },
                     documenti: {
-                        quotaAnnuale: document.getElementById('quotaAnnualeEdit').value,
-                        moduloIscrizione: document.getElementById('moduloIscrizioneEdit').value,
-                        moduloSanitario: document.getElementById('moduloSanitarioEdit').value
+                        quotaAnnuale: {
+                            1: {
+                                data: document.getElementById('quotaAnnuale1DataEdit').value,
+                                pagata: document.getElementById('quotaAnnuale1CheckEdit').checked
+                            },
+                            2: {
+                                data: document.getElementById('quotaAnnuale2DataEdit').value,
+                                pagata: document.getElementById('quotaAnnuale2CheckEdit').checked
+                            },
+                            3: {
+                                data: document.getElementById('quotaAnnuale3DataEdit').value,
+                                pagata: document.getElementById('quotaAnnuale3CheckEdit').checked
+                            },
+                            4: {
+                                data: document.getElementById('quotaAnnuale4DataEdit').value,
+                                pagata: document.getElementById('quotaAnnuale4CheckEdit').checked
+                            }
+                        },
+                        moduloIscrizione: {
+                            presente: document.getElementById('moduloIscrizioneCheckEdit').checked
+                        },
+                        moduloSanitario: {
+                            1: {
+                                data: document.getElementById('moduloSanitario1DataEdit').value,
+                                presente: document.getElementById('moduloSanitario1CheckEdit').checked
+                            },
+                            2: {
+                                data: document.getElementById('moduloSanitario2DataEdit').value,
+                                presente: document.getElementById('moduloSanitario2CheckEdit').checked
+                            },
+                            3: {
+                                data: document.getElementById('moduloSanitario3DataEdit').value,
+                                presente: document.getElementById('moduloSanitario3CheckEdit').checked
+                            },
+                            4: {
+                                data: document.getElementById('moduloSanitario4DataEdit').value,
+                                presente: document.getElementById('moduloSanitario4CheckEdit').checked
+                            }
+                        },
+                        moduloPrivacy: {
+                            1: {
+                                data: document.getElementById('moduloPrivacy1DataEdit').value,
+                                presente: document.getElementById('moduloPrivacy1CheckEdit').checked
+                            },
+                            2: {
+                                data: document.getElementById('moduloPrivacy2DataEdit').value,
+                                presente: document.getElementById('moduloPrivacy2CheckEdit').checked
+                            },
+                            3: {
+                                data: document.getElementById('moduloPrivacy3DataEdit').value,
+                                presente: document.getElementById('moduloPrivacy3CheckEdit').checked
+                            },
+                            4: {
+                                data: document.getElementById('moduloPrivacy4DataEdit').value,
+                                presente: document.getElementById('moduloPrivacy4CheckEdit').checked
+                            }
+                        }
                     }
                 }
             };
