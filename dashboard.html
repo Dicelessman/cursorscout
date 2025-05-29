@@ -126,12 +126,12 @@
                 }
 
                 console.log('Utente staff approvato, carico la lista esploratori');
-                loadUsers();
+                await loadUsers();
             } catch (error) {
                 console.error('Errore durante il controllo del ruolo:', error);
                 usersList.innerHTML = `
                     <li class="px-6 py-4 text-center text-red-600">
-                        Si è verificato un errore durante il caricamento degli esploratori
+                        Errore durante il controllo del ruolo: ${error.message}
                     </li>
                 `;
             }
@@ -141,8 +141,16 @@
         async function loadUsers(searchTerm = '') {
             try {
                 console.log('Caricamento lista esploratori...');
-                const q = query(collection(db, "utenti"));
+                
+                // Creiamo una query specifica per gli esploratori
+                const q = query(
+                    collection(db, "utenti"),
+                    where("ruolo", "==", "esploratore")
+                );
+                
+                console.log('Esecuzione query...');
                 const querySnapshot = await getDocs(q);
+                console.log('Query completata, documenti trovati:', querySnapshot.size);
                 
                 usersList.innerHTML = '';
                 let hasExplorers = false;
@@ -153,10 +161,9 @@
                     const userData = doc.data();
                     console.log('Utente trovato:', userData);
                     
-                    if (userData.ruolo === 'esploratore' && 
-                        (searchTerm === '' || 
-                         userData.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         userData.cognome.toLowerCase().includes(searchTerm.toLowerCase()))) {
+                    if (searchTerm === '' || 
+                        userData.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                        userData.cognome.toLowerCase().includes(searchTerm.toLowerCase())) {
                         
                         hasExplorers = true;
                         const li = document.createElement('li');
@@ -209,7 +216,7 @@
                 console.error('Errore durante il caricamento degli esploratori:', error);
                 usersList.innerHTML = `
                     <li class="px-6 py-4 text-center text-red-600">
-                        Si è verificato un errore durante il caricamento degli esploratori
+                        Errore durante il caricamento degli esploratori: ${error.message}
                     </li>
                 `;
             }
