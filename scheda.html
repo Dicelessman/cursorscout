@@ -633,6 +633,11 @@
             document.getElementById('tecnicamp4AnnoEdit').value = tecnicamp?.[4]?.anno || '';
 
             // Documenti
+            const quotaAnnuale = userData.datiScheda?.documenti?.quotaAnnuale;
+            const moduloIscrizione = userData.datiScheda?.documenti?.moduloIscrizione;
+            const moduloSanitario = userData.datiScheda?.documenti?.moduloSanitario;
+            const moduloPrivacy = userData.datiScheda?.documenti?.moduloPrivacy;
+
             document.getElementById('quotaAnnuale1DataEdit').value = quotaAnnuale?.[1]?.data || '';
             document.getElementById('quotaAnnuale1CheckEdit').checked = quotaAnnuale?.[1]?.pagata || false;
             document.getElementById('quotaAnnuale2DataEdit').value = quotaAnnuale?.[2]?.data || '';
