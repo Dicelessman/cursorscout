@@ -628,7 +628,10 @@
                     throw new Error('Utente non trovato');
                 }
 
-                currentUserData = { ...userDoc.data(), uid: userId };
+                const userData = userDoc.data();
+                currentUserData = { ...userData, uid: userId };
+
+                // Verifica se l'utente corrente è staff
                 const currentUserDoc = await getDoc(doc(db, "utenti", user.uid));
                 const currentUserData = currentUserDoc.data();
                 isStaff = currentUserData.staff && currentUserData.approvato;
@@ -639,14 +642,14 @@
                 }
 
                 // Popola i dati della scheda
-                document.getElementById('nomeCompleto').textContent = `${currentUserData.nome} ${currentUserData.cognome}`;
-                document.getElementById('email').textContent = currentUserData.email;
+                document.getElementById('nomeCompleto').textContent = `${userData.nome} ${userData.cognome}`;
+                document.getElementById('email').textContent = userData.email;
 
                 // Popola i campi di visualizzazione
-                populateDisplayFields(currentUserData);
+                populateDisplayFields(userData);
 
                 // Popola i campi di modifica
-                populateEditFields(currentUserData);
+                populateEditFields(userData);
 
                 // Nascondi il loading e mostra il contenuto
                 loading.classList.add('hidden');
